@@ -1,151 +1,173 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-
-body{
-
-    font-family: 'Nunito Sans', sans-serif;
-    background-color:hsl(0, 0%, 98%);
-
+body {
+  font-family: "Nunito Sans", sans-serif;
+  background-color: hsl(0, 0%, 98%);
 }
 
-.container1{
-    padding: 16px 20px;
-
-
-
+.container1 {
+  padding: 16px 20px;
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    row-gap: 40px;
-    background-color: hsl(0, 0%, 98%);
-    padding-top: 40px;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  row-gap: 40px;
+  background-color: hsl(0, 0%, 98%);
+  padding-top: 40px;
 }
 
-.country-card{
-
-    height:100%;
-    width:80%;
-    background-color: white;
-    border-radius: 5px;
-    overflow: hidden;
-   
+.country-card {
+  height: 100%;
+  width: 80%;
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .flag {
+  height: 50%;
 
-    height: 50%;
-
-/* width:100vh; */
-
+  /* width:100vh; */
 }
 
-.flag-image{
-    width:100%
-    
+.flag-image {
+  width: 100%;
 }
 
-.country-info{
-    height:50%;
-   
-    
+.country-info {
+  height: 50%;
 }
 
-.country-name{
-    font-weight: bold;
-    padding-bottom: 16px;
-    font-size: 16px;
-
-
+.country-name {
+  font-weight: bold;
+  padding-bottom: 16px;
+  font-size: 16px;
 }
 
-.details{
-    display:flex;
-    flex-direction: column;
-    padding: 16px 0 30px 18px;
-    font-size:14px;
+.details {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 30px 18px;
+  font-size: 14px;
+  /* line-height: 4; */
 }
 
-.attribute{
-    line-height: 1.5;
+.greybkGround {
+  background-color: hsl(0, 0%, 98%);
+  /* display: hidden */
 }
 
-
+.attribute {
+  line-height: 2;
+}
 
 /* Dropdown Menu */
 
 /* Dropdown Button */
 .dropbtn {
-    background-color: white;
-    color: black;
-    padding: 16px;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-    border-radius: 10px;
-    width:100%;
-    text-align: left;
-   
-  }
-  
-  /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: white;
-  }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-    display: inline-block;
-    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.2);
-    border-radius: 5px;
-    width: 50%;
-    margin-top: 34px;
-    
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    /* min-width: 160px; */
-    width:100%;
-    border-radius: 5px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    margin-top: 5px;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: hsl(0, 0%, 98%);}
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;}
+  background-color: white;
+  color: black;
+  padding: 16px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 100%;
+  text-align: left;
+}
 
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus {
+  background-color: white;
+}
 
-  /* search Bar */
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  width: 50%;
+  margin-top: 34px;
+}
 
-  #search-bar{
-      height:50px;
-      width:100%
-  }
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  /* min-width: 160px; */
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-top: 5px;
+}
 
-  .detailed-view{
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: hsl(0, 0%, 98%);
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}
+
+/* search Bar */
+
+#search-bar {
+  height: 50px;
+  width: 100%;
+}
+
+/* .detailed-view{
       display: none;
+  } */
+
+.rowTwo {
+  padding-top: 17px;
+}
+
+.bordersRow {
+  padding-top: 16px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.borders-button-row {
+    display: flex;
+    flex-wrap: wrap;
+/* text-align: center;   */
+  
+    /* column-gap: 20px; */
   }
+
+.borders-btn {
+  border: 0;
+  height: 32px;
+  margin: 5px;
+  padding: 10px 15px;
+  box-shadow: 1px 1px 5px hsl(0, 59%, 32%);
+  background-color: white;
+  
+
+}
+
+

@@ -1,5 +1,27 @@
 const countryInfo = (() => {
-  const countryBorders = (countryData, country) => countryData[country].borders;
+  
+  
+  const countryBorders = (countryData, country) => countryData[country].borders; 
+
+  
+
+  const separateBorderLands = (countryBorders) => {
+    const landsSeparated = [];
+    if (countryBorders.length > 0) {
+      const landsSeparated = [];
+
+      for (let lands = 0; lands < countryBorders.length; lands++) {
+        landsSeparated.push(countryBorders[lands]);
+      }
+
+      countriesByInitials(landsSeparated);
+    }
+  };
+
+  //   countryBorders[lands])
+
+  // }
+
   const countryCapital = (countryData, country) => countryData[country].capital;
   const countryCurrency = (countryData, country) =>
     countryData[country].currencies;
@@ -31,6 +53,7 @@ const countryInfo = (() => {
     countryRegion,
     countrySubRegion,
     countryTopLevelDomain,
+    separateBorderLands,
   };
 })();
 
@@ -61,9 +84,37 @@ const pageElements = (() => {
     attributeQuantity.length === 0 ? (attributeQuantity = "None") : null;
     const attribute = document.createElement("p");
     attribute.classList.add("attribute");
+
+    (attributeQuantity.length ==="None" && attributeName === "Border Countries") ? attribute.innerHTML = `<strong>${attributeName}:` :
     attribute.innerHTML = `<strong>${attributeName}: </strong>${attributeQuantity}`;
 
     return attribute;
+  };
+
+  const borderingLandsBtns = (data) => {
+
+    const button = data;
+
+    const bordersButtonRow = document.createElement("div");
+    bordersButtonRow.classList.add("borders-button-Row");
+
+    for (let i = 0; i < data.length; i++) {
+      console.log(data[i]["name"]);
+
+      const bordersBtn = document.createElement("button");
+      bordersBtn.classList.add("borders-btn");
+      bordersBtn.textContent = `${data[i]["name"]}`;
+
+      bordersBtn.setAttribute("data-btn", `${data[i]["name"]}`);
+      bordersButtonRow.appendChild(bordersBtn);
+    }
+
+  
+
+
+
+    const bordersRow = document.querySelector(".bordersRow");
+    bordersRow.appendChild(bordersButtonRow);
   };
 
   const languageAtrributeHandler = (attributeName, attributeQuantity) => {
@@ -75,11 +126,7 @@ const pageElements = (() => {
       languages.push(` ${attributeQuantity[i]["name"]}`);
     }
 
-    const attribute = document.createElement("p");
-    attribute.classList.add("attribute");
-    attribute.innerHTML = `<strong>${attributeName}: </strong> ${languages}`;
-
-    return attribute;
+    return attributeGenerator(attributeName, languages);
   };
 
   const appendChildren = (
@@ -101,6 +148,7 @@ const pageElements = (() => {
   return {
     appendChildren,
     attributeGenerator,
+    borderingLandsBtns,
     cardGenerator,
     flagGenerator,
     languageAtrributeHandler,
@@ -108,14 +156,19 @@ const pageElements = (() => {
   };
 })();
 
-const homePageBuilder = (countryData, detailedView = false, index = null) => {
-  detailedView ? (countryData = [countryData[index]]) : null;
+const pageBuilder = (countryData, detailedView = false, index = null) => {
+  if (detailedView) {
 
-  console.log(countryData.length);
+     countryData = [countryData[index]];
+    const borders = countryInfo.countryBorders(countryData, 0);
+    countryInfo.separateBorderLands(borders)} else null;
+
+
 
   for (let country = 0; country < countryData.length; country++) {
     const container = document.querySelector(".container");
     const borders = countryInfo.countryBorders(countryData, country);
+    
     const capital = countryInfo.countryCapital(countryData, country);
     const countryOverview = countryInfo.countryOverview(countryData, country);
     const currency = countryInfo.countryCurrency(countryData, country)[0][
@@ -159,36 +212,55 @@ const homePageBuilder = (countryData, detailedView = false, index = null) => {
 
     const countryCapital = pageElements.attributeGenerator("Capital", capital);
 
+    const rowTwo = document.createElement("div");
+
+    rowTwo.classList.add("rowTwo");
+
     const countryTopLevelDomain = pageElements.attributeGenerator(
       "Top Level Domain",
       topLevelDomain
     );
+
+    rowTwo.appendChild(countryTopLevelDomain);
 
     const countryCurrency = pageElements.attributeGenerator(
       "Currency",
       currency
     );
 
+    rowTwo.appendChild(countryCurrency);
+
     const countryLanguages = pageElements.languageAtrributeHandler(
       "Languages",
       languages
     );
+
+    rowTwo.appendChild(countryLanguages);
+
+    const bordersRow = document.createElement("div");
+
+    bordersRow.classList.add("bordersRow");
+    // bordersRow.appendChild(borderButtons)
+
+    // const borderButtons = pageElements.borderingLandsBtns()
 
     const countryBorder = pageElements.attributeGenerator(
       "Border Countries",
       borders
     );
 
+    bordersRow.appendChild(countryBorder);
+    // bordersRow.appendChild(borderButtons)
+
     const detailedViewAppend = [
       countryName,
+      countryNativeName,
       countryPop,
       countryRegion,
       countrySubRegion,
       countryCapital,
-      countryTopLevelDomain,
-      countryCurrency,
-      countryLanguages,
-      countryBorder,
+      rowTwo,
+      bordersRow,
     ];
 
     const overviewToAppend = [
@@ -220,13 +292,10 @@ const homePageBuilder = (countryData, detailedView = false, index = null) => {
 
       const index = countryData.findIndex((x) => x.name === countryName);
 
-      // countryData = (countryData[index].length);
-
       const container = document.querySelector(".container");
       container.innerHTML = "";
-      console.log(countryData);
-
-      homePageBuilder(countryData, true, index);
+    
+      pageBuilder(countryData, true, index);
     })
   );
 };
@@ -237,7 +306,7 @@ async function getAllCountries() {
   });
   const data = await response.json();
 
-  homePageBuilder(data);
+  pageBuilder(data);
 }
 
 getAllCountries();
@@ -290,7 +359,7 @@ async function filterByRegion(regionChosen) {
 
   container.innerHTML = "";
 
-  homePageBuilder(data);
+  pageBuilder(data);
 }
 
 //   search-bar
@@ -308,7 +377,7 @@ async function searchByName(searchValue) {
 
   container.innerHTML = "";
 
-  homePageBuilder(data);
+  pageBuilder(data);
 }
 
 const searchBarEntry = document.querySelector("#search-bar");
@@ -323,3 +392,21 @@ searchBarEntry.addEventListener("keyup", function (e) {
   console.log(searchValue);
   searchByName(searchValue);
 });
+
+async function countriesByInitials(borders) {
+  const testList = [];
+
+  for (let i = 0; i < borders.length; i++) {
+    const response = await fetch(
+      `https://restcountries.eu/rest/v2/alpha/${borders[i]}`,
+
+      { mode: "cors" }
+    );
+
+    const data = await response.json();
+
+    testList.push(data);
+  }
+
+  pageElements.borderingLandsBtns(testList);
+}
