@@ -58,10 +58,7 @@ const pageElements = (() => {
   };
 
   const attributeGenerator = (attributeName, attributeQuantity) => {
-
-    // attributeName ==="Languages" ? languageAtrributeHandler(attributeName, attributeQuantity) : null;
-
-    attributeQuantity.length === 0 ? attributeQuantity = "None" : null;
+    attributeQuantity.length === 0 ? (attributeQuantity = "None") : null;
     const attribute = document.createElement("p");
     attribute.classList.add("attribute");
     attribute.innerHTML = `<strong>${attributeName}: </strong>${attributeQuantity}`;
@@ -69,54 +66,84 @@ const pageElements = (() => {
     return attribute;
   };
 
-  const languageAtrributeHandler = (attributeName, attributeQuantity)=>{
+  const languageAtrributeHandler = (attributeName, attributeQuantity) => {
+    languages = [];
 
-    
-      languages=[]
+    for (let i = 0; i < attributeQuantity.length; i++) {
+      attributeQuantity;
 
+      languages.push(` ${attributeQuantity[i]["name"]}`);
+    }
 
-      for (let i = 0; i < attributeQuantity.length; i++){
+    const attribute = document.createElement("p");
+    attribute.classList.add("attribute");
+    attribute.innerHTML = `<strong>${attributeName}: </strong> ${languages}`;
 
-        attributeQuantity 
-        
-        languages.push(` ${attributeQuantity[i]["name"]}`)
+    return attribute;
+  };
 
-      }
+  const appendChildren = (
+    detailedView = false,
+    countryDetails,
+    overviewList,
+    detailedList
+  ) => {
+    detailedView ? (list = detailedList) : (list = overviewList);
+    let i = 0;
 
-      const attribute = document.createElement("p");
-      attribute.classList.add("attribute");
-      attribute.innerHTML = `<strong>${attributeName}: </strong> ${languages}`;
+    for (i; i < list.length; i++) {
+      countryDetails.appendChild(list[i]);
+    }
 
-      return attribute;
+    return countryDetails;
+  };
 
-    
-
-
-  }
-
-  return { attributeGenerator, cardGenerator, flagGenerator, languageAtrributeHandler, nameGenerator };
+  return {
+    appendChildren,
+    attributeGenerator,
+    cardGenerator,
+    flagGenerator,
+    languageAtrributeHandler,
+    nameGenerator,
+  };
 })();
 
+const homePageBuilder = (countryData, detailedView = false, index = null) => {
+  detailedView ? (countryData = [countryData[index]]) : null;
 
-const homePageBuilder = (countryData) => {
+  console.log(countryData.length);
+
   for (let country = 0; country < countryData.length; country++) {
+    const container = document.querySelector(".container");
+    const borders = countryInfo.countryBorders(countryData, country);
+    const capital = countryInfo.countryCapital(countryData, country);
+    const countryOverview = countryInfo.countryOverview(countryData, country);
+    const currency = countryInfo.countryCurrency(countryData, country)[0][
+      "name"
+    ];
+    const flag = countryInfo.countryFlag(countryData, country);
+    const languages = countryInfo.countryLanguages(countryData, country);
     const name = countryInfo.countryName(countryData, country);
-   console.log(countryOverview = countryInfo.countryOverview(countryData, country));
+    const nativeName = countryInfo.countryNativeName(countryData, country);
     const population = countryInfo.countryPopulation(countryData, country);
     const region = countryInfo.countryRegion(countryData, country);
-    const capital = countryInfo.countryCapital(countryData, country);
-    const flag = countryInfo.countryFlag(countryData, country);
+    const subRegion = countryInfo.countrySubRegion(countryData, country);
+    const topLevelDomain = countryInfo.countryTopLevelDomain(
+      countryData,
+      country
+    );
 
-    const container = document.querySelector(".container");
-
+    const countryName = pageElements.nameGenerator(name);
     const countryCard = pageElements.cardGenerator();
-
-    countryCard.appendChild(pageElements.flagGenerator(flag));
+    const countryFlag = pageElements.flagGenerator(flag);
 
     const countryDetails = document.createElement("div");
     countryDetails.classList.add("details");
 
-    const countryName = pageElements.nameGenerator(name);
+    const countryNativeName = pageElements.attributeGenerator(
+      "Native Name:",
+      nativeName
+    );
 
     const countryPop = pageElements.attributeGenerator(
       "Population",
@@ -125,13 +152,62 @@ const homePageBuilder = (countryData) => {
 
     const countryRegion = pageElements.attributeGenerator("Region", region);
 
+    const countrySubRegion = pageElements.attributeGenerator(
+      "Sub Region",
+      subRegion
+    );
+
     const countryCapital = pageElements.attributeGenerator("Capital", capital);
 
-    countryDetails.appendChild(countryName);
-    countryDetails.appendChild(countryPop);
-    countryDetails.appendChild(countryRegion);
-    countryDetails.appendChild(countryCapital);
-    countryCard.appendChild(countryDetails);
+    const countryTopLevelDomain = pageElements.attributeGenerator(
+      "Top Level Domain",
+      topLevelDomain
+    );
+
+    const countryCurrency = pageElements.attributeGenerator(
+      "Currency",
+      currency
+    );
+
+    const countryLanguages = pageElements.languageAtrributeHandler(
+      "Languages",
+      languages
+    );
+
+    const countryBorder = pageElements.attributeGenerator(
+      "Border Countries",
+      borders
+    );
+
+    const detailedViewAppend = [
+      countryName,
+      countryPop,
+      countryRegion,
+      countrySubRegion,
+      countryCapital,
+      countryTopLevelDomain,
+      countryCurrency,
+      countryLanguages,
+      countryBorder,
+    ];
+
+    const overviewToAppend = [
+      countryName,
+      countryPop,
+      countryRegion,
+      countryCapital,
+    ];
+
+    countryCardGenerated = pageElements.appendChildren(
+      detailedView,
+      countryDetails,
+      overviewToAppend,
+      detailedViewAppend
+    );
+
+    countryCard.appendChild(pageElements.flagGenerator(flag));
+
+    countryCard.appendChild(countryCardGenerated);
 
     container.appendChild(countryCard);
   }
@@ -142,108 +218,20 @@ const homePageBuilder = (countryData) => {
     country.addEventListener("click", function () {
       const countryName = country.querySelector(".country-name").innerText;
 
-      const index = countryData.findIndex(
-        (x) => x.name === countryName)
+      const index = countryData.findIndex((x) => x.name === countryName);
 
-        console.log(index)
+      // countryData = (countryData[index].length);
 
+      const container = document.querySelector(".container");
+      container.innerHTML = "";
+      console.log(countryData);
 
-        detailedPageBuilder(countryData,index)
-      ;
+      homePageBuilder(countryData, true, index);
     })
   );
 };
 
-
-
-const detailedPageBuilder = (countryData,country) =>{
-
-
- 
-
-
-  const borders = countryInfo.countryBorders(countryData,country)
-  const capital = countryInfo.countryCapital(countryData, country);
-  const countryOverview = countryInfo.countryOverview(countryData, country);
-  const currency = countryInfo.countryCurrency(countryData,country)[0]["name"]
-  const flag = countryInfo.countryFlag(countryData, country);
-  const languages = countryInfo.countryLanguages(countryData,country)
-  const name = countryInfo.countryName(countryData, country);
-  const nativeName = countryInfo.countryNativeName(countryData,country)
-  const population = countryInfo.countryPopulation(countryData, country);
-  const region = countryInfo.countryRegion(countryData, country);
-  const subRegion = countryInfo.countrySubRegion(countryData,country)
-  const topLevelDomain = countryInfo.countryTopLevelDomain(countryData,country)
-
-
-  const container = document.querySelector(".container");
-  container.innerHTML = "";
-
-  const countryName = pageElements.nameGenerator(name);
-  const countryCard = pageElements.cardGenerator();
-  countryCard.appendChild(pageElements.flagGenerator(flag));
- 
-  const countryDetails = document.createElement("div");
-  countryDetails.classList.add("details");
-
-
-  const countryNativeName = pageElements.attributeGenerator(
-    "Native Name:",
-    nativeName
-  );
-
-  const countryPop = pageElements.attributeGenerator(
-    "Population",
-    population
-  );
-
-  const countryRegion = pageElements.attributeGenerator("Region", region);
-
-  const countrySubRegion = pageElements.attributeGenerator("Sub Region", subRegion);
-
-  const countryCapital = pageElements.attributeGenerator("Capital", capital);
-
-
-  const countryTopLevelDomain = pageElements.attributeGenerator("Top Level Domain", topLevelDomain);
-
-  const countryCurrency = pageElements.attributeGenerator("Currency", currency);
-
-  const countryLanguages = pageElements.languageAtrributeHandler("Languages", languages)
-
-  const countryBorder = pageElements.attributeGenerator("Border Countries", borders)
-
-
-const childrenToBeAppended = [
-  countryName, countryPop, countryRegion, countrySubRegion, countryCapital, countryTopLevelDomain, countryCurrency, countryLanguages, countryBorder]
-
-  countryDetails.appendChild(countryName);
-  countryDetails.appendChild(countryPop);
-  countryDetails.appendChild(countryRegion);
-  countryDetails.appendChild(countrySubRegion);
-  countryDetails.appendChild(countryCapital);
-  countryDetails.appendChild(countryTopLevelDomain);
-  countryDetails.appendChild(countryCurrency);
-  countryDetails.appendChild(countryLanguages);
-  countryCard.appendChild(countryDetails);
-  countryDetails.appendChild(countryBorder);
-
-
-  container.appendChild(countryCard);
-}
-
-
-
-
-
-
-
-
-
-
-
-
 async function getAllCountries() {
-
   const response = await fetch(`https://restcountries.eu/rest/v2/all`, {
     mode: "cors",
   });
@@ -253,8 +241,6 @@ async function getAllCountries() {
 }
 
 getAllCountries();
-
-
 
 // Dropdown menu
 /* When the user clicks on the button,
@@ -286,16 +272,10 @@ regions.forEach((btn) =>
     const regionChosen = this.dataset.region;
 
     filterByRegion(regionChosen);
-
-    // console.log("click worked");
-
-    // console.log(this.dataset.region);
   })
 );
 
 // sort by region filter
-
-
 
 async function filterByRegion(regionChosen) {
   const response = await fetch(
@@ -339,10 +319,7 @@ function getValue() {
 }
 
 searchBarEntry.addEventListener("keyup", function (e) {
-  // e.preventDefault();
   const searchValue = getValue();
   console.log(searchValue);
   searchByName(searchValue);
 });
-
-// click on country
