@@ -1,9 +1,5 @@
 const countryInfo = (() => {
-  
-  
-  const countryBorders = (countryData, country) => countryData[country].borders; 
-
-  
+  const countryBorders = (countryData, country) => countryData[country].borders;
 
   const separateBorderLands = (countryBorders) => {
     const landsSeparated = [];
@@ -17,8 +13,6 @@ const countryInfo = (() => {
       countriesByInitials(landsSeparated);
     }
   };
-
-  //   countryBorders[lands])
 
   // }
 
@@ -57,6 +51,8 @@ const countryInfo = (() => {
   };
 })();
 
+
+
 const pageElements = (() => {
   const flagGenerator = (countryFlag) => {
     const flag = document.createElement("div");
@@ -81,43 +77,42 @@ const pageElements = (() => {
   };
 
   const attributeGenerator = (attributeName, attributeQuantity) => {
-    attributeQuantity.length === 0 ? (attributeQuantity = "None") : null;
     const attribute = document.createElement("p");
     attribute.classList.add("attribute");
 
-    (attributeQuantity.length ==="None" && attributeName === "Border Countries") ? attribute.innerHTML = `<strong>${attributeName}:` :
     attribute.innerHTML = `<strong>${attributeName}: </strong>${attributeQuantity}`;
 
     return attribute;
   };
 
-  const borderingLandsBtns = (data) => {
-
-    const button = data;
-
+  const borderingBtnsGenerator = (borderlist) => {
+ 
     const bordersButtonRow = document.createElement("div");
     bordersButtonRow.classList.add("borders-button-Row");
 
-    for (let i = 0; i < data.length; i++) {
-      console.log(data[i]["name"]);
+    const noBorders = document.createElement("P");
+    noBorders.textContent = "None";
 
+    if (borderlist.length===0){
+
+      bordersButtonRow.append(noBorders);
+
+
+    } else {
+
+      for (let i = 0; i < borderlist.length; i++) {
       const bordersBtn = document.createElement("button");
       bordersBtn.classList.add("borders-btn");
-      bordersBtn.textContent = `${data[i]["name"]}`;
+      bordersBtn.textContent = `${borderlist[i]}`;
 
-      bordersBtn.setAttribute("data-btn", `${data[i]["name"]}`);
+      bordersBtn.setAttribute("data-btn", `${borderlist[i]}`);
       bordersButtonRow.appendChild(bordersBtn);
-    }
+    }}
 
-  
-
-
-
-    const bordersRow = document.querySelector(".bordersRow");
-    bordersRow.appendChild(bordersButtonRow);
+    return bordersButtonRow;
   };
 
-  const languageAtrributeHandler = (attributeName, attributeQuantity) => {
+  const languageAtrributeGenerator = (attributeName, attributeQuantity) => {
     languages = [];
 
     for (let i = 0; i < attributeQuantity.length; i++) {
@@ -148,27 +143,90 @@ const pageElements = (() => {
   return {
     appendChildren,
     attributeGenerator,
-    borderingLandsBtns,
+    borderingLandsBtns: borderingBtnsGenerator,
     cardGenerator,
     flagGenerator,
-    languageAtrributeHandler,
+    languageAtrributeHandler: languageAtrributeGenerator,
     nameGenerator,
   };
 })();
 
-const pageBuilder = (countryData, detailedView = false, index = null) => {
+const borderCountriesInfo = (() => {
+
+  const fullData = []
+
+  const fullDataGetter = (data) => {
+  
+  fullData.push(data)
+
+
+  return fullData}
+
+
+  const borderNames = (borders) =>{
+
+    const borderCountries= []
+ 
+for (let i = 0; i < borders.length; i++){
+  testindex = (fullData[0].findIndex((x) => x.alpha3Code === borders[i]));
+
+  borderCountries.push(fullData[0][testindex]["name"])
+  
+}
+return borderCountries
+
+
+}
+
+ 
+ return{borderNames, fullDataGetter}
+})();
+
+const pageBuilder = (
+  countryData,
+  detailedView = false,
+  index = 0,
+  // borderslist = null,
+  fullData = null
+
+
+
+) => {
+ 
+  let borderButtonsRow = ""
+
   if (detailedView) {
 
-     countryData = [countryData[index]];
-    const borders = countryInfo.countryBorders(countryData, 0);
-    countryInfo.separateBorderLands(borders)} else null;
+    let fullCountryData =""
 
 
+    fullData === null ? fullCountryData = countryData : fullCountryData = fullData
+
+    const individualCountryData = [countryData[index]];
+ 
+    const borders = countryInfo.countryBorders(individualCountryData, 0);
+
+
+
+
+    const borderlist = borderCountriesInfo.borderNames(borders,fullCountryData)
+
+  
+
+    borderButtonsRow = pageElements.borderingLandsBtns(borderlist)
+
+    countryData = individualCountryData
+
+
+
+  } else null;
 
   for (let country = 0; country < countryData.length; country++) {
     const container = document.querySelector(".container");
     const borders = countryInfo.countryBorders(countryData, country);
-    
+
+    // borderCountriesInfo.borderNames(borders, fullCountryData)
+
     const capital = countryInfo.countryCapital(countryData, country);
     const countryOverview = countryInfo.countryOverview(countryData, country);
     const currency = countryInfo.countryCurrency(countryData, country)[0][
@@ -240,18 +298,22 @@ const pageBuilder = (countryData, detailedView = false, index = null) => {
     const bordersRow = document.createElement("div");
 
     bordersRow.classList.add("bordersRow");
-    // bordersRow.appendChild(borderButtons)
+    const bordersTitle = document.createElement("p");
+    bordersTitle.classList.add("borders-title");
+    bordersTitle.textContent = "Border Countries:";
 
-    // const borderButtons = pageElements.borderingLandsBtns()
+    bordersRow.appendChild(bordersTitle);
 
-    const countryBorder = pageElements.attributeGenerator(
-      "Border Countries",
-      borders
-    );
+    // const borderButtonsRow = pageElements.borderingLandsBtns(borderlist);
+   
 
-    bordersRow.appendChild(countryBorder);
-    // bordersRow.appendChild(borderButtons)
+    if(detailedView) {
 
+     
+    
+    bordersRow.appendChild(borderButtonsRow)
+
+  }
     const detailedViewAppend = [
       countryName,
       countryNativeName,
@@ -282,22 +344,35 @@ const pageBuilder = (countryData, detailedView = false, index = null) => {
     countryCard.appendChild(countryCardGenerated);
 
     container.appendChild(countryCard);
+
+    if (detailedView) {
+      const borderLandBtns = document.querySelectorAll(".borders-btn");
+      borderLandBtns.forEach((btn) =>
+        btn.addEventListener("click", function () {
+
+        
+         searchByName(btn.textContent, countryData)
+        })
+      );
+    } else null;
   }
 
-  const countrySelect = document.querySelectorAll(".country-card");
+  if (!detailedView) {
+    const countrySelect = document.querySelectorAll(".country-card");
 
-  countrySelect.forEach((country) =>
-    country.addEventListener("click", function () {
-      const countryName = country.querySelector(".country-name").innerText;
+    countrySelect.forEach((country) =>
+      country.addEventListener("click", function () {
+        const countryName = country.querySelector(".country-name").innerText;
 
-      const index = countryData.findIndex((x) => x.name === countryName);
+        const index = countryData.findIndex((x) => x.name === countryName);
 
-      const container = document.querySelector(".container");
-      container.innerHTML = "";
-    
-      pageBuilder(countryData, true, index);
-    })
-  );
+        const container = document.querySelector(".container");
+        container.innerHTML = "";
+
+        pageBuilder(countryData, true, index);
+      })
+    );
+  }
 };
 
 async function getAllCountries() {
@@ -305,6 +380,9 @@ async function getAllCountries() {
     mode: "cors",
   });
   const data = await response.json();
+
+  borderCountriesInfo.fullDataGetter(data)
+
 
   pageBuilder(data);
 }
@@ -359,12 +437,14 @@ async function filterByRegion(regionChosen) {
 
   container.innerHTML = "";
 
+ 
+
   pageBuilder(data);
 }
 
 //   search-bar
 
-async function searchByName(searchValue) {
+async function searchByName(searchValue, countryData) {
   const response = await fetch(
     `https://restcountries.eu/rest/v2/name/${searchValue}`,
     {
@@ -377,7 +457,7 @@ async function searchByName(searchValue) {
 
   container.innerHTML = "";
 
-  pageBuilder(data);
+  pageBuilder(data,true, 0, null, countryData);
 }
 
 const searchBarEntry = document.querySelector("#search-bar");
@@ -389,11 +469,11 @@ function getValue() {
 
 searchBarEntry.addEventListener("keyup", function (e) {
   const searchValue = getValue();
-  console.log(searchValue);
+
   searchByName(searchValue);
 });
 
-async function countriesByInitials(borders) {
+async function countriesByInitials(countryData, borders, index) {
   const testList = [];
 
   for (let i = 0; i < borders.length; i++) {
@@ -401,12 +481,5 @@ async function countriesByInitials(borders) {
       `https://restcountries.eu/rest/v2/alpha/${borders[i]}`,
 
       { mode: "cors" }
-    );
+    )}};
 
-    const data = await response.json();
-
-    testList.push(data);
-  }
-
-  pageElements.borderingLandsBtns(testList);
-}
