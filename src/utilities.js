@@ -41,7 +41,19 @@ const utilities = (() => {
     container.innerHTML = "";
   };
 
-  return { clearScreen, detailedCountryView, home };
+  const borderCountriesSelector = (main) => {
+    const borderBtn = document.querySelectorAll(".borders-btn");
+    borderBtn.forEach((btn) =>
+      btn.addEventListener("click", function () {
+        const countryName = btn.textContent;
+        const index = setIndex(countryName);
+        clearScreen();
+        main(true, index);
+      })
+    );
+  };
+
+  return { borderCountriesSelector, clearScreen, detailedCountryView, home };
 })();
 
 export { utilities };

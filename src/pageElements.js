@@ -1,8 +1,8 @@
 const pageElements = (() => {
-    const flagGenerator = (countryFlag) => {
+    const flagGenerator = (countryFlag, countryName) => {
       const flag = document.createElement("div");
       flag.classList.add("flag");
-      flag.innerHTML = `<img class = "flag-image" src = ${countryFlag}>`;
+      flag.innerHTML = `<img class = "flag-image" src = ${countryFlag} alt=${countryName}>`;
   
       return flag;
     };
@@ -30,28 +30,7 @@ const pageElements = (() => {
       return attribute;
     };
   
-    const borderingBtnsGenerator = (borderlist) => {
-      const bordersButtonRow = document.createElement("div");
-      bordersButtonRow.classList.add("borders-button-Row");
-  
-      const noBorders = document.createElement("P");
-      noBorders.textContent = "None";
-  
-      if (borderlist.length === 0) {
-        bordersButtonRow.append(noBorders);
-      } else {
-        for (let i = 0; i < borderlist.length; i++) {
-          const bordersBtn = document.createElement("button");
-          bordersBtn.classList.add("borders-btn");
-          bordersBtn.textContent = `${borderlist[i]}`;
-  
-          bordersBtn.setAttribute("data-btn", `${borderlist[i]}`);
-          bordersButtonRow.appendChild(bordersBtn);
-        }
-      }
-  
-      return bordersButtonRow;
-    };
+
   
     const languageAtrributeGenerator = (attributeName, attributeQuantity) => {
       const languages = [];
@@ -112,7 +91,6 @@ const pageElements = (() => {
     detailedPageGenerator,
       homePageGenerator,
       attributeGenerator,
-      borderingLandsBtns: borderingBtnsGenerator,
       cardGenerator,
       flagGenerator,
       languageAtrributeHandler: languageAtrributeGenerator,
