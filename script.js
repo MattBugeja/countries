@@ -1,234 +1,190 @@
-const countryInfo = (() => {
-  const countryBorders = (countryData, country) => countryData[country].borders;
+// const countryInfo = (() => {
+//   const countryBorders = (countryData, country) => countryData[country].borders;
+//   const countryCapital = (countryData, country) => countryData[country].capital;
+//   const countryCurrency = (countryData, country) =>
+//     countryData[country].currencies;
+//   const countryFlag = (countryData, country) => countryData[country].flag;
+//   const countryLanguages = (countryData, country) =>
+//     countryData[country].languages;
+//   const countryName = (countryData, country) => countryData[country].name;
+//   const countryNativeName = (countryData, country) =>
+//     countryData[country].nativeName;
+//   const countryOverview = (countryData, country) => countryData[country];
+//   const countryPopulation = (countryData, country) =>
+//     Number(countryData[country].population).toLocaleString();
+//   const countryRegion = (countryData, country) => countryData[country].region;
+//   const countrySubRegion = (countryData, country) =>
+//     countryData[country].subregion;
+//   const countryTopLevelDomain = (countryData, country) =>
+//     countryData[country].topLevelDomain;
 
-  const separateBorderLands = (countryBorders) => {
-    const landsSeparated = [];
-    if (countryBorders.length > 0) {
-      const landsSeparated = [];
+//   return {
+//     countryBorders,
+//     countryCapital,
+//     countryCurrency,
+//     countryFlag,
+//     countryLanguages,
+//     countryName,
+//     countryNativeName,
+//     countryOverview,
+//     countryPopulation,
+//     countryRegion,
+//     countrySubRegion,
+//     countryTopLevelDomain,
+    
+//   };
+// })();
 
-      for (let lands = 0; lands < countryBorders.length; lands++) {
-        landsSeparated.push(countryBorders[lands]);
-      }
+// const pageElements = (() => {
+//   const flagGenerator = (countryFlag) => {
+//     const flag = document.createElement("div");
+//     flag.classList.add("flag");
+//     flag.innerHTML = `<img class = "flag-image" src = ${countryFlag}>`;
 
-      countriesByInitials(landsSeparated);
-    }
-  };
+//     return flag;
+//   };
 
-  // }
+//   const cardGenerator = () => {
+//     const countryCard = document.createElement("div");
+//     countryCard.classList.add("country-card");
+//     countryCard.setAttribute("role", "button");
+//     return countryCard;
+//   };
 
-  const countryCapital = (countryData, country) => countryData[country].capital;
-  const countryCurrency = (countryData, country) =>
-    countryData[country].currencies;
-  const countryFlag = (countryData, country) => countryData[country].flag;
-  const countryLanguages = (countryData, country) =>
-    countryData[country].languages;
-  const countryName = (countryData, country) => countryData[country].name;
-  const countryNativeName = (countryData, country) =>
-    countryData[country].nativeName;
-  const countryOverview = (countryData, country) => countryData[country];
-  const countryPopulation = (countryData, country) =>
-    Number(countryData[country].population).toLocaleString();
-  const countryRegion = (countryData, country) => countryData[country].region;
-  const countrySubRegion = (countryData, country) =>
-    countryData[country].subregion;
-  const countryTopLevelDomain = (countryData, country) =>
-    countryData[country].topLevelDomain;
+//   const nameGenerator = (countryNameParam) => {
+//     const countryName = document.createElement("h1");
+//     countryName.classList.add("country-name");
+//     countryName.textContent = countryNameParam;
+//     return countryName;
+//   };
 
-  return {
-    countryBorders,
-    countryCapital,
-    countryCurrency,
-    countryFlag,
-    countryLanguages,
-    countryName,
-    countryNativeName,
-    countryOverview,
-    countryPopulation,
-    countryRegion,
-    countrySubRegion,
-    countryTopLevelDomain,
-    separateBorderLands,
-  };
-})();
+//   const attributeGenerator = (attributeName, attributeQuantity) => {
+//     const attribute = document.createElement("p");
+//     attribute.classList.add("attribute");
 
+//     attribute.innerHTML = `<strong>${attributeName}: </strong>${attributeQuantity}`;
 
+//     return attribute;
+//   };
 
-const pageElements = (() => {
-  const flagGenerator = (countryFlag) => {
-    const flag = document.createElement("div");
-    flag.classList.add("flag");
-    flag.innerHTML = `<img class = "flag-image" src = ${countryFlag}>`;
+//   const borderingBtnsGenerator = (borderlist) => {
+//     const bordersButtonRow = document.createElement("div");
+//     bordersButtonRow.classList.add("borders-button-Row");
 
-    return flag;
-  };
+//     const noBorders = document.createElement("P");
+//     noBorders.textContent = "None";
 
-  const cardGenerator = () => {
-    const countryCard = document.createElement("div");
-    countryCard.classList.add("country-card");
-    countryCard.setAttribute("role", "button");
-    return countryCard;
-  };
+//     if (borderlist.length === 0) {
+//       bordersButtonRow.append(noBorders);
+//     } else {
+//       for (let i = 0; i < borderlist.length; i++) {
+//         const bordersBtn = document.createElement("button");
+//         bordersBtn.classList.add("borders-btn");
+//         bordersBtn.textContent = `${borderlist[i]}`;
 
-  const nameGenerator = (countryNameParam) => {
-    const countryName = document.createElement("h1");
-    countryName.classList.add("country-name");
-    countryName.textContent = countryNameParam;
-    return countryName;
-  };
+//         bordersBtn.setAttribute("data-btn", `${borderlist[i]}`);
+//         bordersButtonRow.appendChild(bordersBtn);
+//       }
+//     }
 
-  const attributeGenerator = (attributeName, attributeQuantity) => {
-    const attribute = document.createElement("p");
-    attribute.classList.add("attribute");
+//     return bordersButtonRow;
+//   };
 
-    attribute.innerHTML = `<strong>${attributeName}: </strong>${attributeQuantity}`;
+//   const languageAtrributeGenerator = (attributeName, attributeQuantity) => {
+//     const languages = [];
 
-    return attribute;
-  };
+//     for (let i = 0; i < attributeQuantity.length; i++) {
+//       attributeQuantity;
 
-  const borderingBtnsGenerator = (borderlist) => {
- 
-    const bordersButtonRow = document.createElement("div");
-    bordersButtonRow.classList.add("borders-button-Row");
+//       languages.push(` ${attributeQuantity[i]["name"]}`);
+//     }
 
-    const noBorders = document.createElement("P");
-    noBorders.textContent = "None";
+//     return attributeGenerator(attributeName, languages);
+//   };
 
-    if (borderlist.length===0){
+//   const appendChildren = (
+//     detailedView = false,
+//     countryDetails,
+//     overviewList,
+//     detailedList
+//   ) => {
+//     let list = "";
+//     detailedView ? (list = detailedList) : (list = overviewList);
+//     let i = 0;
 
-      bordersButtonRow.append(noBorders);
+//     for (i; i < list.length; i++) {
+//       countryDetails.appendChild(list[i]);
+//     }
 
+//     return countryDetails;
+//   };
 
-    } else {
+//   return {
+//     appendChildren,
+//     attributeGenerator,
+//     borderingLandsBtns: borderingBtnsGenerator,
+//     cardGenerator,
+//     flagGenerator,
+//     languageAtrributeHandler: languageAtrributeGenerator,
+//     nameGenerator,
+//   };
+// })();
 
-      for (let i = 0; i < borderlist.length; i++) {
-      const bordersBtn = document.createElement("button");
-      bordersBtn.classList.add("borders-btn");
-      bordersBtn.textContent = `${borderlist[i]}`;
+// const borderCountriesInfo = (() => {
+//   const fullData = [];
 
-      bordersBtn.setAttribute("data-btn", `${borderlist[i]}`);
-      bordersButtonRow.appendChild(bordersBtn);
-    }}
+//   const fullDataGetter = (data) => {
+//     fullData.push(data);
 
-    return bordersButtonRow;
-  };
+//     return fullData;
+//   };
 
-  const languageAtrributeGenerator = (attributeName, attributeQuantity) => {
-    languages = [];
+//   const borderNames = (borders) => {
+//     const borderCountries = [];
 
-    for (let i = 0; i < attributeQuantity.length; i++) {
-      attributeQuantity;
+//     for (let i = 0; i < borders.length; i++) {
+//       let testindex = fullData[0].findIndex((x) => x.alpha3Code === borders[i]);
 
-      languages.push(` ${attributeQuantity[i]["name"]}`);
-    }
+//       borderCountries.push(fullData[0][testindex]["name"]);
+//     }
+//     return borderCountries;
+//   };
 
-    return attributeGenerator(attributeName, languages);
-  };
-
-  const appendChildren = (
-    detailedView = false,
-    countryDetails,
-    overviewList,
-    detailedList
-  ) => {
-    detailedView ? (list = detailedList) : (list = overviewList);
-    let i = 0;
-
-    for (i; i < list.length; i++) {
-      countryDetails.appendChild(list[i]);
-    }
-
-    return countryDetails;
-  };
-
-  return {
-    appendChildren,
-    attributeGenerator,
-    borderingLandsBtns: borderingBtnsGenerator,
-    cardGenerator,
-    flagGenerator,
-    languageAtrributeHandler: languageAtrributeGenerator,
-    nameGenerator,
-  };
-})();
-
-const borderCountriesInfo = (() => {
-
-  const fullData = []
-
-  const fullDataGetter = (data) => {
-  
-  fullData.push(data)
-
-
-  return fullData}
-
-
-  const borderNames = (borders) =>{
-
-    const borderCountries= []
- 
-for (let i = 0; i < borders.length; i++){
-  testindex = (fullData[0].findIndex((x) => x.alpha3Code === borders[i]));
-
-  borderCountries.push(fullData[0][testindex]["name"])
-  
-}
-return borderCountries
-
-
-}
-
- 
- return{borderNames, fullDataGetter}
-})();
+//   return { borderNames, fullDataGetter };
+// })();
 
 const pageBuilder = (
   countryData,
   detailedView = false,
   index = 0,
-  // borderslist = null,
   fullData = null
-
-
-
 ) => {
- 
-  let borderButtonsRow = ""
+  let borderButtonsRow = "";
 
   if (detailedView) {
+    let fullCountryData = "";
 
-    let fullCountryData =""
-
-
-    fullData === null ? fullCountryData = countryData : fullCountryData = fullData
+    fullData === null
+      ? (fullCountryData = countryData)
+      : (fullCountryData = fullData);
 
     const individualCountryData = [countryData[index]];
- 
+
     const borders = countryInfo.countryBorders(individualCountryData, 0);
 
+    const borderlist = borderCountriesInfo.borderNames(
+      borders,
+      fullCountryData
+    );
 
+    borderButtonsRow = pageElements.borderingLandsBtns(borderlist);
 
-
-    const borderlist = borderCountriesInfo.borderNames(borders,fullCountryData)
-
-  
-
-    borderButtonsRow = pageElements.borderingLandsBtns(borderlist)
-
-    countryData = individualCountryData
-
-
-
+    countryData = individualCountryData;
   } else null;
 
   for (let country = 0; country < countryData.length; country++) {
     const container = document.querySelector(".container");
-    const borders = countryInfo.countryBorders(countryData, country);
-
-    // borderCountriesInfo.borderNames(borders, fullCountryData)
-
     const capital = countryInfo.countryCapital(countryData, country);
-    const countryOverview = countryInfo.countryOverview(countryData, country);
     const currency = countryInfo.countryCurrency(countryData, country)[0][
       "name"
     ];
@@ -246,8 +202,6 @@ const pageBuilder = (
 
     const countryName = pageElements.nameGenerator(name);
     const countryCard = pageElements.cardGenerator();
-    const countryFlag = pageElements.flagGenerator(flag);
-
     const countryDetails = document.createElement("div");
     countryDetails.classList.add("details");
 
@@ -304,16 +258,12 @@ const pageBuilder = (
 
     bordersRow.appendChild(bordersTitle);
 
-    // const borderButtonsRow = pageElements.borderingLandsBtns(borderlist);
-   
 
-    if(detailedView) {
+    if (detailedView) {
+      bordersRow.appendChild(borderButtonsRow);
+    }
 
-     
-    
-    bordersRow.appendChild(borderButtonsRow)
 
-  }
     const detailedViewAppend = [
       countryName,
       countryNativeName,
@@ -332,7 +282,7 @@ const pageBuilder = (
       countryCapital,
     ];
 
-    countryCardGenerated = pageElements.appendChildren(
+    const countryCardGenerated = pageElements.appendChildren(
       detailedView,
       countryDetails,
       overviewToAppend,
@@ -349,9 +299,7 @@ const pageBuilder = (
       const borderLandBtns = document.querySelectorAll(".borders-btn");
       borderLandBtns.forEach((btn) =>
         btn.addEventListener("click", function () {
-
-        
-         searchByName(btn.textContent, countryData)
+          searchByName(btn.textContent, countryData);
         })
       );
     } else null;
@@ -375,19 +323,37 @@ const pageBuilder = (
   }
 };
 
-async function getAllCountries() {
-  const response = await fetch(`https://restcountries.eu/rest/v2/all`, {
-    mode: "cors",
-  });
-  const data = await response.json();
 
-  borderCountriesInfo.fullDataGetter(data)
+function saveToLocal(data){
+
+  localStorage.setItem("data", JSON.stringify(data))
+
+};
 
 
-  pageBuilder(data);
+function callFromLocal(){
+
+  const data = localStorage.getItem("data")l 
+
 }
 
-getAllCountries();
+
+
+// async function getAllCountries() {
+  // const response = await fetch(`https://restcountries.eu/rest/v2/all`, {
+    // mode: "cors",
+  // });
+  // const data = await response.json();
+
+  // borderCountriesInfo.fullDataGetter(data);
+
+  // pageBuilder(data);
+// }
+
+// getAllCountries();
+
+
+
 
 // Dropdown menu
 /* When the user clicks on the button,
@@ -437,8 +403,6 @@ async function filterByRegion(regionChosen) {
 
   container.innerHTML = "";
 
- 
-
   pageBuilder(data);
 }
 
@@ -457,7 +421,7 @@ async function searchByName(searchValue, countryData) {
 
   container.innerHTML = "";
 
-  pageBuilder(data,true, 0, null, countryData);
+  pageBuilder(data, true, 0, null, countryData);
 }
 
 const searchBarEntry = document.querySelector("#search-bar");
@@ -467,19 +431,8 @@ function getValue() {
   return searchValue;
 }
 
-searchBarEntry.addEventListener("keyup", function (e) {
+searchBarEntry.addEventListener("keyup", function () {
   const searchValue = getValue();
 
   searchByName(searchValue);
 });
-
-async function countriesByInitials(countryData, borders, index) {
-  const testList = [];
-
-  for (let i = 0; i < borders.length; i++) {
-    const response = await fetch(
-      `https://restcountries.eu/rest/v2/alpha/${borders[i]}`,
-
-      { mode: "cors" }
-    )}};
-

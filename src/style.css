@@ -17,7 +17,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  height: auto;
   row-gap: 40px;
   background-color: hsl(0, 0%, 98%);
   padding-top: 40px;
@@ -28,13 +28,12 @@ body {
   width: 80%;
   background-color: white;
   border-radius: 5px;
-  overflow: hidden;
 }
 
 .flag {
   height: 50%;
-
-  /* width:100vh; */
+  overflow: hidden;
+  border-radius: 5px;
 }
 
 .flag-image {
@@ -56,12 +55,10 @@ body {
   flex-direction: column;
   padding: 16px 16px 30px 18px;
   font-size: 14px;
-  /* line-height: 4; */
 }
 
 .greybkGround {
   background-color: hsl(0, 0%, 98%);
-  /* display: hidden */
 }
 
 .attribute {
@@ -104,7 +101,6 @@ body {
   display: none;
   position: absolute;
   background-color: white;
-  /* min-width: 160px; */
   width: 100%;
   border-radius: 5px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -137,40 +133,34 @@ body {
   width: 100%;
 }
 
-/* .detailed-view{
-      display: none;
-  } */
-
-.rowTwo {
+.second-row {
   padding-top: 17px;
 }
 
-.bordersRow {
+.borders-row {
   padding-top: 16px;
   font-size: 16px;
   font-weight: 400;
 }
 
 .borders-button-row {
-    display: flex;
-    flex-wrap: wrap;
-/* text-align: center;   */
-  
-    /* column-gap: 20px; */
-  }
+  display: flex;
+  flex-wrap: wrap;
+}
 
 .borders-btn {
   border: 0;
-  height: 32px;
+  height: 48px;
   margin: 5px;
   padding: 10px 15px;
   box-shadow: 1px 1px 5px hsl(0, 59%, 32%);
   background-color: white;
-  
-
 }
 
-
-.borders-title{
+.borders-title {
   font-weight: 900;
+}
+
+.hello {
+  color: red;
 }
