@@ -1,157 +1,158 @@
-import { countryInfo } from "./countryInfo.js";
+// import { countryInfo } from "./countryInfo.js";
 import { apiHandler } from "./APIhandler";
-import { pageElements } from "./pageElements.js";
+// import { pageElements } from "./pageElements.js";
 import { utilities } from "./utilities";
-import { borderCountries } from "./borderCountriesInfo.js";
-import "./style.css";
+// import { borderCountries } from "./borderCountriesInfo.js";
+// import "./style.css";
+import { pageBuilder } from "./pagebuilder";
 
 const data = apiHandler.callFromLocal();
 
-function main(detailedView = false, index = 0) {
-  let dataLength;
 
-  detailedView
-    ? //<--------------------------------------- -----------------detailed view modifier
-      (index, (dataLength = index + 1))
-    : ((index = 0), (dataLength = data.length));
+pageBuilder(data)
 
-  for (index; index < dataLength; index++) {
-    const container = document.querySelector(".container");
-    const countryName = countryInfo.name(index);
-    const capital = countryInfo.capital(index);
-    const currency = countryInfo.currency(index)[0]["name"];
-    const flag = countryInfo.flag(index);
-    const languages = countryInfo.languages(index);
-    const nativeName = countryInfo.nativeName(index);
-    const population = countryInfo.population(index);
-    const region = countryInfo.region(index);
-    const subRegion = countryInfo.subRegion(index);
-    const topLevelDomain = countryInfo.topLevelDomain(index);
+// function main(countryData = data, detailedView = false, index = 0) {
+//   let dataLength;
 
-    const borders = countryInfo.borders(index);
+//   detailedView
+//     ? //<--------------------------------------- -----------------detailed view modifier
+//       (index, (dataLength = index + 1))
+//     : ((index = 0), (dataLength = countryData.length));
 
-    const countryNameText = pageElements.nameGenerator(countryName);
-    const countryCard = pageElements.cardGenerator();
+//   for (index; index < dataLength; index++) {
+//     const container = document.querySelector(".container");
+//     const countryName = countryInfo.name(index);
+//     const capital = countryInfo.capital(index);
+//     const currency = countryInfo.currency(index)[0]["name"];
+//     const flag = countryInfo.flag(index);
+//     const languages = countryInfo.languages(index);
+//     const nativeName = countryInfo.nativeName(index);
+//     const population = countryInfo.population(index);
+//     const region = countryInfo.region(index);
+//     const subRegion = countryInfo.subRegion(index);
+//     const topLevelDomain = countryInfo.topLevelDomain(index);
 
-    detailedView ? countryCard.classList.add("greybkGround") : null;
-    //<--------------------------------------- -----------------detailed view modifier
+//     const borders = countryInfo.borders(index);
 
-    const countryDetails = document.createElement("div");
-    countryDetails.classList.add("details");
+//     const countryNameText = pageElements.nameGenerator(countryName);
+//     const countryCard = pageElements.cardGenerator();
 
-    const nativeNameText = pageElements.attributeGenerator(
-      "Native Name:",
-      nativeName
-    );
+//     detailedView ? countryCard.classList.add("greybkGround") : null;
+//     //<--------------------------------------- -----------------detailed view modifier
 
-    const populationText = pageElements.attributeGenerator(
-      "Population",
-      population
-    );
+//     const countryDetails = document.createElement("div");
+//     countryDetails.classList.add("details");
 
-    const regionText = pageElements.attributeGenerator("Region", region);
+//     const nativeNameText = pageElements.attributeGenerator(
+//       "Native Name:",
+//       nativeName
+//     );
 
-    const subRegionText = pageElements.attributeGenerator(
-      "Sub Region",
-      subRegion
-    );
+//     const populationText = pageElements.attributeGenerator(
+//       "Population",
+//       population
+//     );
 
-    const capitalText = pageElements.attributeGenerator("Capital", capital);
+//     const regionText = pageElements.attributeGenerator("Region", region);
 
-    const secondRow = document.createElement("div");
+//     const subRegionText = pageElements.attributeGenerator(
+//       "Sub Region",
+//       subRegion
+//     );
 
-    secondRow.classList.add("second-row");
+//     const capitalText = pageElements.attributeGenerator("Capital", capital);
 
-    const countryTopLevelDomain = pageElements.attributeGenerator(
-      "Top Level Domain",
-      topLevelDomain
-    );
+//     const secondRow = document.createElement("div");
 
-    secondRow.appendChild(countryTopLevelDomain);
+//     secondRow.classList.add("second-row");
 
-    const countryCurrency = pageElements.attributeGenerator(
-      "Currency",
-      currency
-    );
+//     const countryTopLevelDomain = pageElements.attributeGenerator(
+//       "Top Level Domain",
+//       topLevelDomain
+//     );
 
-    secondRow.appendChild(countryCurrency);
+//     secondRow.appendChild(countryTopLevelDomain);
 
-    const countryLanguages = pageElements.languageAtrributeHandler(
-      "Languages",
-      languages
-    );
+//     const countryCurrency = pageElements.attributeGenerator(
+//       "Currency",
+//       currency
+//     );
 
-    secondRow.appendChild(countryLanguages);
+//     secondRow.appendChild(countryCurrency);
 
-    const bordersRow = document.createElement("div");
+//     const countryLanguages = pageElements.languageAtrributeHandler(
+//       "Languages",
+//       languages
+//     );
 
-    bordersRow.classList.add("borders-row");
-    const bordersTitle = document.createElement("p");
-    bordersTitle.classList.add("borders-title");
-    bordersTitle.textContent = "Border Countries:";
+//     secondRow.appendChild(countryLanguages);
 
-    bordersRow.appendChild(bordersTitle);
+//     const bordersRow = document.createElement("div");
 
-    if (detailedView) {
-      //<--------------------------------------- -----------------detailed view modifier
-      const borderBtns = borderCountries.borderCountriesBtnsGenerator(borders);
+//     bordersRow.classList.add("borders-row");
+//     const bordersTitle = document.createElement("p");
+//     bordersTitle.classList.add("borders-title");
+//     bordersTitle.textContent = "Border Countries:";
 
-      bordersRow.appendChild(borderBtns);
-    } else null;
+//     bordersRow.appendChild(bordersTitle);
 
-    const detailedViewAppend = [
-      countryNameText,
-      nativeNameText,
-      populationText,
-      regionText,
-      subRegionText,
-      capitalText,
-      secondRow,
-      bordersRow,
-    ];
+//     if (detailedView) {
+//       //<--------------------------------------- -----------------detailed view modifier
+//       const borderBtns = borderCountries.borderCountriesBtnsGenerator(borders);
 
-    const overviewToAppend = [
-      countryNameText,
-      populationText,
-      regionText,
-      capitalText,
-    ];
-
-    countryCard.appendChild(pageElements.flagGenerator(flag, countryName));
-
-    if (!detailedView) {
-      //--------------------------------------- -----------------detailed view modifier
-      const countryCardGenerated = pageElements.homePageGenerator(
-        countryDetails,
-        overviewToAppend
-      );
-      countryCard.appendChild(countryCardGenerated);
-    } else {
-      const countryCardGenerated = pageElements.detailedPageGenerator(
-        countryDetails,
-        detailedViewAppend
-      );
-
-      countryCard.appendChild(countryCardGenerated);
-    }
-
-    container.appendChild(countryCard);
-  }
+//       bordersRow.appendChild(borderBtns);
+//     } else null;
 
 
-//  let output = data.filter((country)=> country.region === "Asia");
-//  console.log((output))  
+//     countryCard.appendChild(pageElements.flagGenerator(flag, countryName));
 
-  !detailedView
-    ? //--------------------------------------- -----------------detailed view modifier
-      utilities.detailedCountryView(main)
-    : utilities.borderCountriesSelector(main);
-}
+//     if (!detailedView) {
+
+//       const overviewToAppend = [
+//         countryNameText,
+//         populationText,
+//         regionText,
+//         capitalText,
+//       ];
+//       //--------------------------------------- -----------------detailed view modifier
+//       const countryCardGenerated = pageElements.homePageGenerator(
+//         countryDetails,
+//         overviewToAppend
+//       );
+//       countryCard.appendChild(countryCardGenerated);
+//     } else {
+//       const detailedViewAppend = [
+//         countryNameText,
+//         nativeNameText,
+//         populationText,
+//         regionText,
+//         subRegionText,
+//         capitalText,
+//         secondRow,
+//         bordersRow,
+//       ];
+
+
+//       const countryCardGenerated = pageElements.detailedPageGenerator(
+//         countryDetails,
+//         detailedViewAppend
+//       );
+
+//       countryCard.appendChild(countryCardGenerated);
+//     }
+
+//     container.appendChild(countryCard);
+//   }
+
+//   !detailedView
+//     ? //--------------------------------------- -----------------detailed view modifier
+//       utilities.detailedCountryView(main)
+//     : utilities.borderCountriesSelector(main);
+// }
 
 utilities.dropdownMenu()
 
-utilities.home(main);
+utilities.home();
 
 apiHandler.getAllCountries();
 
-main();
