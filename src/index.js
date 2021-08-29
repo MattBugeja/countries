@@ -138,11 +138,17 @@ function main(detailedView = false, index = 0) {
     container.appendChild(countryCard);
   }
 
+
+//  let output = data.filter((country)=> country.region === "Asia");
+//  console.log((output))  
+
   !detailedView
     ? //--------------------------------------- -----------------detailed view modifier
       utilities.detailedCountryView(main)
     : utilities.borderCountriesSelector(main);
 }
+
+utilities.dropdownMenu()
 
 utilities.home(main);
 

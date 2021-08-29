@@ -7,24 +7,44 @@ const countryInfo = (() => {
 
 
 
-    const borders = (country) => countryData[country].borders;
-    const capital = (country) => countryData[country].capital;
-    const currency = (country) =>
-      countryData[country].currencies;
-    const flag = (country) => countryData[country].flag;
-    const languages = (country) =>
-      countryData[country].languages;
-    const name = (country) => countryData[country].name;
-    const nativeName = (country) =>
-      countryData[country].nativeName;
-    const overview = (country) => countryData[country];
-    const population = (country) =>
-      Number(countryData[country].population).toLocaleString();
-    const region = (country) => countryData[country].region;
-    const subRegion = (country) =>
-      countryData[country].subregion;
-    const topLevelDomain = (country) =>
-      countryData[country].topLevelDomain;
+    const borders = (index) => countryData[index].borders;
+    const capital = (index) => countryData[index].capital;
+    const currency = (index) =>
+      countryData[index].currencies;
+    const flag = (index) => countryData[index].flag;
+    const languages = (index) =>
+      countryData[index].languages;
+    const name = (index) => countryData[index].name;
+    const nativeName = (index) =>
+      countryData[index].nativeName;
+    const overview = (index) => countryData[index];
+    const population = (index) =>
+      Number(countryData[index].population).toLocaleString();
+    const region = (index) => countryData[index].region;
+    const subRegion = (index) =>
+      countryData[index].subregion;
+    const topLevelDomain = (index) =>
+      countryData[index].topLevelDomain;
+
+      const countriesByRegions = () =>{ 
+        
+        const countriesInRegion = countryData.filter((country) => country.region === "Africa" )
+        console.log(countriesInRegion)
+
+    return countriesInRegion
+  
+
+    }
+
+    // let output = data.filter((country)=> country.region === "Asia");
+    // console.log((output)) 
+
+      const countryIndex = (countryName) => {
+        const index = countryData.findIndex((x) => x.name === countryName);
+    
+        return index;
+      };
+
 
       const test = (name) => console.log(name)
 
@@ -32,6 +52,8 @@ const countryInfo = (() => {
     return {
       borders,
       capital,
+      countriesByRegions,
+      countryIndex,
       currency,
       flag,
       languages,
