@@ -1,40 +1,26 @@
-
 const apiHandler = (() => {
-
-
-const saveToLocal = (data) => {
-
-    localStorage.setItem("data", JSON.stringify(data))
-
+  const saveToLocal = (entry, data) => {
+    localStorage.setItem(entry, JSON.stringify(data));
   };
-  
-  
-   const callFromLocal = () => {
-  
+
+  const callFromLocal = () => {
     const dataRetrieved = localStorage.getItem("data");
-    const data = JSON.parse(dataRetrieved)
-  
-    return data
-    
-  }
-  
+    const data = JSON.parse(dataRetrieved);
 
-  const getAllCountries = async() => {
+    return data;
+  };
 
+  const getAllCountries = async () => {
     const response = await fetch(`https://restcountries.eu/rest/v2/all`, {
       mode: "cors",
     });
 
     const data = await response.json();
 
-    return saveToLocal(data)
-  
-  }
+    return saveToLocal("data", data);
+  };
 
-  return {saveToLocal, callFromLocal, getAllCountries}
+  return { saveToLocal, callFromLocal, getAllCountries };
+})();
 
-  
-})()
-
-
-export {apiHandler}
+export { apiHandler };
