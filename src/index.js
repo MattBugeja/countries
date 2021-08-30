@@ -3,20 +3,18 @@ import { utilities } from "./utilities";
 
 import { pageBuilder } from "./pagebuilder";
 import { countryInfo } from "./countryInfo";
+import { homePageBuilder } from "./homepagebuilder";
 
 
+localStorage.getItem("data") === null ? apiHandler.getAllCountries() : null;
 
-apiHandler.getAllCountries();
-
-const data = apiHandler.callFromLocal()
-
-
-pageBuilder(data)
+const ALLCOUNTRIESDATA = apiHandler.callFromLocal();
 
 
-utilities.byRegionMenuHandler()
+// pageBuilder(ALLCOUNTRIESDATA);
+
+homePageBuilder(ALLCOUNTRIESDATA)
+
+utilities.byRegionMenuHandler();
 
 utilities.home();
-
-
-

@@ -1,3 +1,5 @@
+import { countryInfo } from "./countryInfo";
+
 const pageElements = (() => {
   const flagGenerator = (countryFlag, countryName) => {
     const flag = document.createElement("div");
@@ -42,34 +44,46 @@ const pageElements = (() => {
     return attributeGenerator(attributeName, languages);
   };
 
-  const homePageGenerator = (countryDetails, overviewList) => {
-    let i = 0;
 
-    for (i; i < overviewList.length; i++) {
-      countryDetails.appendChild(overviewList[i]);
+  const fullAttributesGenerator = (numOfAttributes, attributes) => {
+    const attributesContainer = document.createElement("div");
+    attributesContainer.classList.add("overview-attributes");
+
+    for (let i = 0; i < numOfAttributes; i++) {
+      const attributeName = Object.keys(attributes)[i];
+      const attributeQuantity = attributes[attributeName];
+      const attribute = attributeGenerator(attributeName, attributeQuantity);
+      attributesContainer.append(attribute);
     }
 
-    return countryDetails;
+    return attributesContainer;
   };
 
-  const detailedPageGenerator = (countryDetails, detailedList) => {
-    let i = 0;
 
-    for (i; i < detailedList.length; i++) {
-      countryDetails.appendChild(detailedList[i]);
-    }
+  // const commonElements = (index) =>{
 
-    return countryDetails;
-  };
+  //   const countryName = pageElements.nameGenerator(countryInfo.name(index));
+  //   const container = document.querySelector(".container");
+  //   const countryCardDetailed = pageElements.cardGenerator();
+  //   const countryDetails = document.createElement("div");
+  //   countryDetails.classList.add("details");
+  //   countryCardDetailed.appendChild(
+  //     pageElements.flagGenerator(countryInfo.flag(index), countryInfo.name(index))
+  //   );
+  
+  //   countryDetails.append(countryName);
+  // }
+
+
 
   return {
-    detailedPageGenerator,
-    homePageGenerator,
     attributeGenerator,
     cardGenerator,
+    // commonElements,
     flagGenerator,
     languageAtrributeHandler: languageAtrributeGenerator,
     nameGenerator,
+    fullAttributesGenerator,
   };
 })();
 

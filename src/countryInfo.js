@@ -1,25 +1,27 @@
 import { apiHandler } from "./APIhandler";
 import { pageBuilder } from "./pagebuilder";
 
-let countryData = apiHandler.callFromLocal();
+const ALLCOUNTRIESDATA = apiHandler.callFromLocal();
+
+let countriesData = ALLCOUNTRIESDATA;
 
 const countryInfo = (() => {
-  const borders = (index) => countryData[index].borders;
-  const capital = (index) => countryData[index].capital;
-  const currency = (index) => countryData[index].currencies;
-  const flag = (index) => countryData[index].flag;
-  const languages = (index) => countryData[index].languages;
-  const name = (index) => countryData[index].name;
-  const nativeName = (index) => countryData[index].nativeName;
-  const overview = (index) => countryData[index];
+  const borders = (index) => countriesData[index].borders;
+  const capital = (index) => countriesData[index].capital;
+  const currency = (index) => countriesData[index].currencies;
+  const flag = (index) => countriesData[index].flag;
+  const languages = (index) => countriesData[index].languages;
+  const name = (index) => countriesData[index].name;
+  const nativeName = (index) => countriesData[index].nativeName;
+  const overview = (index) => countriesData[index];
   const population = (index) =>
-    Number(countryData[index].population).toLocaleString();
-  const region = (index) => countryData[index].region;
-  const subRegion = (index) => countryData[index].subregion;
-  const topLevelDomain = (index) => countryData[index].topLevelDomain;
+    Number(countriesData[index].population).toLocaleString();
+  const region = (index) => countriesData[index].region;
+  const subRegion = (index) => countriesData[index].subregion;
+  const topLevelDomain = (index) => countriesData[index].topLevelDomain;
 
   const countriesByRegions = (regionChosen) => {
-    const countriesInRegion = countryData.filter(
+    const countriesInRegion = countriesData.filter(
       (country) => country.region === regionChosen
     );
     setToRegional(countriesInRegion);
@@ -27,16 +29,16 @@ const countryInfo = (() => {
     return countriesInRegion;
   };
 
-  const setToGlobal = (global) => {
-    countryData = apiHandler.callFromLocal();
+  const setCountryDataToGlobal = () => {
+    countriesData = apiHandler.callFromLocal();
   };
 
   const setToRegional = (regional) => {
-    countryData = regional;
+    countriesData = regional;
   };
 
   const countryIndex = (countryName) => {
-    const index = countryData.findIndex((x) => x.name === countryName);
+    const index = countriesData.findIndex((x) => x.name === countryName);
 
     return index;
   };
@@ -56,7 +58,7 @@ const countryInfo = (() => {
     overview,
     population,
     region,
-    setToGlobal,
+    setCountryDataToGlobal,
     subRegion,
     topLevelDomain,
     test,

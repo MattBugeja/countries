@@ -2,9 +2,18 @@ import { countryInfo } from "./countryInfo";
 import { pageElements } from "./pageElements";
 import { pageBuilder } from "./pagebuilder";
 import { apiHandler } from "./APIhandler";
+import { detailedPageBuilder } from "./detailedpagebuilder";
+import { homePageBuilder } from "./homepagebuilder";
+
+
 
 const utilities = (() => {
   const countryData = apiHandler.callFromLocal();
+
+  const clearScreen = () => {
+    const container = document.querySelector(".container");
+    container.innerHTML = "";
+  };
 
   const detailedCountryView = () => {
     const countrySelect = document.querySelectorAll(".country-card");
@@ -17,9 +26,7 @@ const utilities = (() => {
 
         clearScreen();
 
-        const countryData = apiHandler.callFromLocal();
-
-        pageBuilder(countryData, true, index);
+        detailedPageBuilder(index);
       })
     );
   };
@@ -30,15 +37,11 @@ const utilities = (() => {
     homeBtn.addEventListener("click", function () {
       clearScreen();
 
-      pageBuilder(countryData);
+      homePageBuilder(countryData);
     });
   };
 
-  const clearScreen = () => {
-    const container = document.querySelector(".container");
-    container.innerHTML = "";
-    console.log("screenCleared");
-  };
+
 
   const borderCountriesSelector = () => {
     const borderBtn = document.querySelectorAll(".borders-btn");
@@ -47,7 +50,7 @@ const utilities = (() => {
         const countryName = btn.textContent;
         const index = countryInfo.countryIndex(countryName);
         clearScreen();
-        pageBuilder(countryData, true, index);
+        detailedPageBuilder(index);
       })
     );
   };
@@ -91,9 +94,9 @@ toggle between hiding and showing the dropdown content */
 
         clearScreen();
 
-        pageBuilder(regionData);
+        homePageBuilder(regionData);
 
-        countryInfo.setToGlobal();
+        countryInfo.setCountryDataToGlobal();
       })
     );
   };
