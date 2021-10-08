@@ -1,0 +1,14 @@
+:root {
+  --main-bg-color: hsl(207, 26%, 17%);
+  --secondary-bg-color: hsl(209, 23%, 22%);
+  --boxshadow-color: 0px 2px 5px 1px hsla(209, 26%, 17%, 0.863);
+  --font-color: white;
+}
+
+.theme-btn {
+  content: "Light Mode";
+
+  background-image: url("../src/images/lightmode_icon.svg");
+  background-repeat: no-repeat;
+  background-position: 15% 50%;
+}

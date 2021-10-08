@@ -1,0 +1,30 @@
+# Avoid accidental Sketch file upload 
+###############################################
+## Please do not remove line 5 - thanks! 🙂 ##
+###############################################
+*.sketch
+
+# Avoid accidental XD or Figma upload if you convert the design file
+#######################################################
+## Please do not remove lines 11 and 12 - thanks! 🙂 ##
+#######################################################
+*.xd
+*.fig
+
+# Avoid your project being littered with annoying .DS_Store files!
+.DS_Store
+node_modules
+design/desktop-design-detail-dark.jpg
+design/desktop-design-detail-light.jpg
+design/desktop-design-home-dark.jpg
+design/desktop-design-home-light.jpg
+design/desktop-preview.jpg
+design/mobile-design-detail-dark.jpg
+design/mobile-design-detail-light.jpg
+design/mobile-design-home-dark.jpg
+design/mobile-design-home-light.jpg
+rest-countries-api-with-color-theme-switcher-figma/rest-countries-api-with-color-theme-switcher-figma/README.md
+rest-countries-api-with-color-theme-switcher-figma/__MACOSX/rest-countries-api-with-color-theme-switcher-figma/._README.md
+README-template.md
+README.md
+node_modules

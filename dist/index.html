@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../src/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="../src/lighttheme.css"
+      data-theme="light"
+      id="active-theme"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Country finder</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <div class="logo">Where in the world?</div>
+
+        <button class="theme-btn">Dark Mode</button>
+      </div>
+
+      <div class="search-filter-container">
+        <form name="search-form" method="POST" class="hide-in-detail">
+          <input
+            type="text"
+            id="search-bar"
+            placeholder="Search for a country..."
+          />
+          <button
+            type="submit"
+            disabled
+            style="display: none"
+            aria-hidden="true"
+          ></button>
+        </form>
+
+        <div class="dropdown hide-in-detail">
+          <button class="dropbtn">Filter by Continent</button>
+          <div id="myDropdown" class="dropdown-content">
+            <a href="#" class="continents" data-continent="Africa">Africa</a>
+            <a href="#" class="continents" data-continent="Americas">America</a>
+            <a href="#" class="continents" data-continent="Asia">Asia</a>
+            <a href="#" class="continents" data-continent="Europe">Europe</a>
+            <a href="#" class="continents" data-continent="Oceania">Oceania</a>
+          </div>
+        </div>
+
+        <button class="js-back-btn">Back</button>
+      </div>
+
+      <div class="country-cards-container"></div>
+
+      <div class="country-cards-container-lg-detailed"></div>
+    </div>
+
+    <script src="bundle.js"></script>
+  </body>
+</html>
