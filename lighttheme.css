@@ -1,0 +1,14 @@
+:root{
+    --main-bg-color: hsl(0, 0%, 98%);
+    --secondary-bg-color: white;
+    --boxshadow-color: 0px 2px 5px 1px hsl(0, 0%, 85%);
+    --font-color: black;
+    }
+
+.theme-btn{
+
+    background-image: url("../src/images/darkmode_icon.svg");
+    background-repeat: no-repeat;
+    background-position: 15% 50%;;
+
+}
